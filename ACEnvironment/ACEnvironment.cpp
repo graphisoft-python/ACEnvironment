@@ -53,13 +53,13 @@ void load_dg_point(py::module m) {
 
 }
 
-PYBIND11_MODULE(ACPyModuleTutorials, m) {
+PYBIND11_MODULE(ACEnvironment, m) {
 
 	m.doc() = "pybind11 example module";
 
 	// Add bindings here
 	m.def("foo", []() {
-		return "Hello, World! ACPyModuleTutorials";
+		return "Hello, World! ACEnvironment";
 	});
 
 	load_dg_point(m);
