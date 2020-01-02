@@ -53,7 +53,7 @@ private:
 class PyAPI_UserInfo {
 public:
 	PyAPI_UserInfo(API_UserInfo *info){
-		memcpy(&this->m_UserInfo, info, sizeof(API_UserInfo));
+		this->m_UserInfo = info;
 	}
 
 	~PyAPI_UserInfo() {
@@ -61,27 +61,27 @@ public:
 	}
 
 	GS::UniString *getLoginName() {
-		return new GS::UniString(this->m_UserInfo.loginName);
+		return new GS::UniString(this->m_UserInfo->loginName);
 	}
 
 	GS::UniString *getFullName() {
-		return new GS::UniString(this->m_UserInfo.fullName);
+		return new GS::UniString(this->m_UserInfo->fullName);
 	}
 
 	GS::Guid getGuid() {
-		return APIGuid2GSGuid(this->m_UserInfo.guid);
+		return APIGuid2GSGuid(this->m_UserInfo->guid);
 	}
 
 	short getUserId() {
-		return this->m_UserInfo.userId;
+		return this->m_UserInfo->userId;
 	}
 
 	bool getConnected() {
-		return this->m_UserInfo.connected;
+		return this->m_UserInfo->connected;
 	}
 
 private:
-	API_UserInfo	m_UserInfo;
+	API_UserInfo	*m_UserInfo;
 };
 
 // --- PyAPI_SharingInfo --------------------------------------------------------------------
@@ -90,24 +90,21 @@ class PyAPI_SharingInfo
 {
 public:
 	PyAPI_SharingInfo() : userInfos(){
+		memset(&this->m_SharingInfo, 0, sizeof(API_SharingInfo));
 		this->m_ExtFuncs= GetExtFuncs();
 		this->Load();
 	}
 
 	~PyAPI_SharingInfo() {
-
+		this->clear();
 	}
 
 	void Load() {
+		this->clear();
 		this->m_ExtFuncs->ACAPI_Environment(APIEnv_ProjectSharingID, &this->m_SharingInfo, NULL, NULL);
-		for (int i = 0; i < this->userInfos.GetSize(); i++) {		// clear userInfos
-			PyAPI_UserInfo *info = this->userInfos.Get(i);
-			this->userInfos.Delete(i);
-			delete info;
-		}
-		this->userInfos.Clear();
 		for (int i = 0; i < this->m_SharingInfo.nUsers; i++) {
-			PyAPI_UserInfo *info = new PyAPI_UserInfo(this->m_SharingInfo.users[i]);
+			API_UserInfo *user = (API_UserInfo *)(*this->m_SharingInfo.users+i);
+			PyAPI_UserInfo *info = new PyAPI_UserInfo(user);
 			this->userInfos.Push(info);
 		}
 	}
@@ -124,6 +121,18 @@ private:
 	GS::Array<PyAPI_UserInfo*>	userInfos;
 	API_SharingInfo				m_SharingInfo;
 	ExportFuns					*m_ExtFuncs;
+
+	void clear(){
+		for (int i = 0; i < this->userInfos.GetSize(); i++) {		// clear userInfos
+			PyAPI_UserInfo *info = this->userInfos.Get(i);
+			this->userInfos.Delete(i);
+			delete info;
+		}
+		this->userInfos.Clear();
+
+		memset(&this->m_SharingInfo,0,sizeof(API_SharingInfo));
+	}
+
 };
 
 
@@ -145,7 +154,7 @@ void load_ProjectInfo(py::module m) {
 
 void load_UserInfo(py::module m) {
 	py::class_<PyAPI_UserInfo>(m, "UserInfo")
-		.def(py::init<API_UserInfo *>())
+		//.def(py::init<API_UserInfo *>())
 		.def("getLoginName", &PyAPI_UserInfo::getLoginName)
 		.def("getFullName", &PyAPI_UserInfo::getFullName)
 		.def("getGuid", &PyAPI_UserInfo::getGuid)
@@ -160,6 +169,7 @@ void load_SharingInfo(py::module m) {
 	py::class_<PyAPI_SharingInfo>(m, "SharingInfo")
 		.def(py::init<>())
 		.def("Load", &PyAPI_SharingInfo::Load)
-		.def("GetUserInfos", &PyAPI_SharingInfo::GetUserInfos)
+		.def("getNUser",&PyAPI_SharingInfo::getNUser)
+		.def("GetUserInfos", &PyAPI_SharingInfo::GetUserInfos,py::return_value_policy::reference)
 		;
 }
