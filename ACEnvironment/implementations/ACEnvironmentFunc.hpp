@@ -43,6 +43,14 @@ public:
 		return this->m_ProjectInfo.modiStamp;
 	}
 
+	GS::UniString* getProjectPath() {
+		return this->m_ProjectInfo.projectPath;
+	}
+
+	GS::UniString* getProjectName() {
+		return this->m_ProjectInfo.projectName;
+	}
+
 private:
 	API_ProjectInfo m_ProjectInfo;
 	ExportFuns		*m_ExtFuncs;
@@ -135,6 +143,79 @@ private:
 
 };
 
+// --- PyAPI_ProjectNoteInfo ----------------------------------------------------------------
+
+class PyAPI_ProjectNoteInfo {
+public:
+	PyAPI_ProjectNoteInfo() : m_ProjectNoteInfo() {
+		this->m_ExtFuncs = GetExtFuncs();
+		this->Load();
+	}
+
+	~PyAPI_ProjectNoteInfo() {
+
+	}
+
+	void Load() {
+		this->m_ExtFuncs->ACAPI_Environment(APIEnv_GetProjectNotesID, &this->m_ProjectNoteInfo, NULL, NULL);
+	}
+
+	GS::UniString *getClient() {
+		return new GS::UniString(this->m_ProjectNoteInfo.client);
+	}
+
+	GS::UniString *getProjectName() {
+		return new GS::UniString(this->m_ProjectNoteInfo.projectName);
+	}
+
+	GS::UniString *getCompany() {
+		return new GS::UniString(this->m_ProjectNoteInfo.company);
+	}
+
+	GS::UniString *getStreet() {
+		return new GS::UniString(this->m_ProjectNoteInfo.street);
+	}
+
+	GS::UniString *getCity() {
+		return new GS::UniString(this->m_ProjectNoteInfo.city);
+	}
+
+	GS::UniString *getCountry() {
+		return new GS::UniString(this->m_ProjectNoteInfo.country);
+	}
+
+	GS::UniString *getCode() {
+		return new GS::UniString(this->m_ProjectNoteInfo.code);
+	}
+
+	GS::UniString *getArchitect() {
+		return new GS::UniString(this->m_ProjectNoteInfo.architect);
+	}
+
+	GS::UniString *getDraftsmen() {
+		return new GS::UniString(this->m_ProjectNoteInfo.draftsmen);
+	}
+
+	GS::UniString *getProjectStatus() {
+		return new GS::UniString(this->m_ProjectNoteInfo.projectStatus);
+	}
+
+	GS::UniString *getDateOfIssue() {
+		return new GS::UniString(this->m_ProjectNoteInfo.dateOfIssue);
+	}
+
+	GS::UniString *getKeywords() {
+		return new GS::UniString(this->m_ProjectNoteInfo.keywords);
+	}
+
+	GS::UniString *getNotes() {
+		return new GS::UniString(this->m_ProjectNoteInfo.notes);
+	}
+
+private:
+	API_ProjectNoteInfo m_ProjectNoteInfo;
+	ExportFuns			*m_ExtFuncs;
+};
 
 // --- load_ProjectInfo ---------------------------------------------------------------------
 
@@ -147,6 +228,8 @@ void load_ProjectInfo(py::module m) {
 		.def("getUserId",&PyAPI_ProjectInfo::getUserId)
 		.def("getWorkGroupMode", &PyAPI_ProjectInfo::getWorkGroupMode)
 		.def("getModiStamp", &PyAPI_ProjectInfo::getModiStamp)
+		.def("getProjectPath", &PyAPI_ProjectInfo::getProjectPath, py::return_value_policy::reference)
+		.def("getProjectName", &PyAPI_ProjectInfo::getProjectName, py::return_value_policy::reference)
 		;
 }
 
@@ -171,5 +254,26 @@ void load_SharingInfo(py::module m) {
 		.def("Load", &PyAPI_SharingInfo::Load)
 		.def("getNUser",&PyAPI_SharingInfo::getNUser)
 		.def("GetUserInfos", &PyAPI_SharingInfo::GetUserInfos,py::return_value_policy::reference)
+		;
+}
+
+// --- load_ProjectNoteInfo ----------------------------------------------------------------
+
+void load_ProjectNoteInfo(py::module m) {
+	py::class_<PyAPI_ProjectNoteInfo>(m, "ProjectNoteInfo")
+		.def(py::init<>())
+		.def("getClient", &PyAPI_ProjectNoteInfo::getClient, py::return_value_policy::reference)
+		.def("getProjectName", &PyAPI_ProjectNoteInfo::getProjectName, py::return_value_policy::reference)
+		.def("getCompany", &PyAPI_ProjectNoteInfo::getCompany, py::return_value_policy::reference)
+		.def("getStreet", &PyAPI_ProjectNoteInfo::getStreet, py::return_value_policy::reference)
+		.def("getCity", &PyAPI_ProjectNoteInfo::getCity, py::return_value_policy::reference)
+		.def("getCountry", &PyAPI_ProjectNoteInfo::getCountry, py::return_value_policy::reference)
+		.def("getCode", &PyAPI_ProjectNoteInfo::getCode, py::return_value_policy::reference)
+		.def("getArchitect", &PyAPI_ProjectNoteInfo::getArchitect, py::return_value_policy::reference)
+		.def("getDraftsmen", &PyAPI_ProjectNoteInfo::getDraftsmen, py::return_value_policy::reference)
+		.def("getProjectStatus", &PyAPI_ProjectNoteInfo::getProjectStatus, py::return_value_policy::reference)
+		.def("getDateOfIssue", &PyAPI_ProjectNoteInfo::getDateOfIssue, py::return_value_policy::reference)
+		.def("getKeywords", &PyAPI_ProjectNoteInfo::getKeywords, py::return_value_policy::reference)
+		.def("getNotes", &PyAPI_ProjectNoteInfo::getNotes, py::return_value_policy::reference)
 		;
 }

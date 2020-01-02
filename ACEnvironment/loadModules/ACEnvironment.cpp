@@ -16,6 +16,7 @@ PYBIND11_MODULE(ACEnvironment, m) {
 	load_ProjectInfo(m);
 	load_SharingInfo(m);
 	load_UserInfo(m);
+	load_ProjectNoteInfo(m);
 
 	// --- Add bindings end -------------------------------------------------------------------
 }
