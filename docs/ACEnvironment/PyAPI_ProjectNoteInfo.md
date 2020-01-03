@@ -4,6 +4,7 @@
 
 ```
 __init__() -> None
+
 getClient() -> GS::UniString *
 getProjectName() -> GS::UniString *
 getCompany() -> GS::UniString *

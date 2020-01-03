@@ -4,6 +4,7 @@
 
 ```
 __init__() -> None
+
 Load() -> None
 getUntitled() -> bool
 getTeamwork() -> bool
