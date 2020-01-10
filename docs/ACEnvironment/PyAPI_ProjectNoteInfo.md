@@ -5,17 +5,17 @@
 ```
 __init__() -> None
 
-getClient() -> GS::UniString *
-getProjectName() -> GS::UniString *
-getCompany() -> GS::UniString *
-getStreet() -> GS::UniString *
-getCity() -> GS::UniString *
-getCountry() -> GS::UniString *
-getCode() -> GS::UniString *
-getArchitect() -> GS::UniString *
-getDraftsmen() -> GS::UniString *
-getProjectStatus() -> GS::UniString *
-getDateOfIssue() -> GS::UniString *
-getKeywords() -> GS::UniString *
-getNotes() -> GS::UniString *
+getClient() -> unicode
+getProjectName() -> unicode
+getCompany() -> unicode
+getStreet() -> unicode
+getCity() -> unicode
+getCountry() -> unicode
+getCode() -> unicode
+getArchitect() -> unicode
+getDraftsmen() -> unicode
+getProjectStatus() -> unicode
+getDateOfIssue() -> unicode
+getKeywords() -> unicode
+getNotes() -> unicode
 ```

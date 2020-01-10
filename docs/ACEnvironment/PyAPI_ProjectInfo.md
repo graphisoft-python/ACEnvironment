@@ -11,6 +11,6 @@ getTeamwork() -> bool
 getUserId() -> short
 getWorkGroupMode() -> int
 getModiStamp() -> unsigned long long
-getProjectPath() -> GS::UniString *
-getProjectName() -> GS::UniString *
+getProjectPath() -> unicode
+getProjectName() -> unicode
 ```

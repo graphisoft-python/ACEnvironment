@@ -3,8 +3,8 @@
 ## Methods
 
 ```
-getLoginName() -> GS::UniString *
-getFullName() -> GS::UniString *
+getLoginName() -> unicode
+getFullName() -> unicode
 getGuid() -> GS::Guid
 getUserId() -> short
 getConnected() -> bool
