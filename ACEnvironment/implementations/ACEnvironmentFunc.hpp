@@ -222,7 +222,7 @@ private:
 void load_ProjectInfo(py::module m) {
 	py::class_<PyAPI_ProjectInfo>(m, "ProjectInfo")
 		.def(py::init<>())
-		.def("Flush", &PyAPI_ProjectInfo::Load)
+		.def("Load", &PyAPI_ProjectInfo::Load)
 		.def("getUntitled", &PyAPI_ProjectInfo::getUntitled)
 		.def("getTeamwork", &PyAPI_ProjectInfo::getTeamwork)
 		.def("getUserId",&PyAPI_ProjectInfo::getUserId)
