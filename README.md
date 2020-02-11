@@ -4,10 +4,10 @@
 
 ### Info
 
-* [PyAPI_ProjectInfo](./docs/PyAPI_ProjectInfo.md)
-* [PyAPI_UserInfo](./docs/PyAPI_UserInfo.md)
-* [PyAPI_SharingInfo](./docs/PyAPI_SharingInfo.md)
-* [PyAPI_ProjectNoteInfo](./docs/PyAPI_ProjectNoteInfo.md)
+* [ProjectInfo](./docs/PyAPI_ProjectInfo.md)
+* [UserInfo](./docs/PyAPI_UserInfo.md)
+* [SharingInfo](./docs/PyAPI_SharingInfo.md)
+* [ProjectNoteInfo](./docs/PyAPI_ProjectNoteInfo.md)
 
 ## Help Us
 
