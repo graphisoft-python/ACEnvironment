@@ -7,5 +7,5 @@ __init__(self) -> None
 
 Load(self) -> None
 getNUser(self) -> int
-GetUserInfos(self) -> List[PyAPI_UserInfo]
+GetUserInfos(self) -> List[UserInfo]
 ```
