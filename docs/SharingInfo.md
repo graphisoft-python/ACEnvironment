@@ -1,4 +1,4 @@
-# Class PyAPI_SharingInfo
+# Class SharingInfo
 
 ## Methods
 

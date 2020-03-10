@@ -1,4 +1,4 @@
-# Class PyAPI_UserInfo
+# Class UserInfo
 
 ## Methods
 
@@ -6,6 +6,6 @@
 getLoginName(self) -> unicode
 getFullName(self) -> unicode
 getGuid(self) -> GSRoot.Guid
-getUserId(self) -> short
+getUserId(self) -> int
 getConnected(self) -> bool
 ```

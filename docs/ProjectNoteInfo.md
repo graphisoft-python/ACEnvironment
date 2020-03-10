@@ -1,4 +1,4 @@
-# Class PyAPI_ProjectNoteInfo
+# Class ProjectNoteInfo
 
 ## Methods
 
