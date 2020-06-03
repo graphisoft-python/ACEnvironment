@@ -51,6 +51,21 @@ public:
 		return this->m_ProjectInfo.projectName;
 	}
 
+	GS::UniString getLocationTeam() {
+		if(!this->m_ProjectInfo.location_team)
+			return "0"; 
+		else
+			return this->m_ProjectInfo.location_team->ToDisplayText();
+	}
+
+	GS::UniString getLocation() {
+		if (!this->m_ProjectInfo.location)
+			return "0";
+		else
+			return this->m_ProjectInfo.location->ToDisplayText();
+	}
+
+
 private:
 	API_ProjectInfo m_ProjectInfo;
 	ExportFuns		*m_ExtFuncs;
@@ -230,6 +245,8 @@ void load_ProjectInfo(py::module m) {
 		.def("getModiStamp", &PyAPI_ProjectInfo::getModiStamp)
 		.def("getProjectPath", &PyAPI_ProjectInfo::getProjectPath, py::return_value_policy::reference)
 		.def("getProjectName", &PyAPI_ProjectInfo::getProjectName, py::return_value_policy::reference)
+		.def("getLocationTeam", &PyAPI_ProjectInfo::getLocationTeam)
+		.def("getLocation", &PyAPI_ProjectInfo::getLocation)
 		;
 }
 
