@@ -19,5 +19,4 @@
 #include "ACCast.h"
 #include "ACObserver.h"
 
-
 namespace py = pybind11;
